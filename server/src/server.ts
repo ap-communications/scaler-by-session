@@ -2,10 +2,13 @@ import os from 'os';
 import http from 'http';
 import express, { Application } from 'express';
 import bodyParser from 'body-parser';
+import morgan from 'morgan';
 import { createTerminus } from '@godaddy/terminus';
+
 import logger from './utils/logger';
 import environment from './config/environment';
 import healthz from './healthz/router';
+import apis from './apis/router';
 
 class ExpressServer {
   constructor(private app: Application) {}
@@ -16,6 +19,8 @@ class ExpressServer {
   private setUp = () => {
     this.app
       .use(bodyParser.json())
+      .use(morgan(environment.isProduction ? 'tiny': 'dev'))
+      .use('/apis', apis)
       .use('/healthz', healthz);
     return this;
   }
