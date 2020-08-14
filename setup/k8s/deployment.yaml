@@ -1,0 +1,44 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: scaler-sample-config
+data:
+  NODE_ENV: production
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: scaler-sample
+  labels:
+    app: scaler-sample
+spec:
+  replicas: 1
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 0
+      maxSurge: 1
+  selector:
+    matchLabels:
+      app: scaler-sample
+  template:
+    metadata:
+      labels:
+        app: scaler-sample
+    spec:
+      containers:
+      - name: scaler-sample
+        image: 956859216284.dkr.ecr.ap-northeast-1.amazonaws.com/scaler-by-session:latest
+        imagePullPolicy: Always
+        resources:
+          requests:
+            cpu: 100m       # 0.1 of a cpu
+            memory: 128Mi   # minimum size for running
+        ports:
+        - containerPort: 3000
+        env:
+        - name: NODE_ENV
+          valueFrom:
+            configMapKeyRef:
+              name: scaler-sample-config
+              key: NODE_ENV
