@@ -36,7 +36,7 @@ const numOfDownload: number = parseMaxDownload(args.options['num']);
 const promises: Promise<any>[] = [];
 range(1, numOfDownload).map(i => {
   promises.push(
-    download(url).then(() => logger.info(`completed ${i}`))
+    download(url).then(res => logger.info(`completed ${i} ${res.headers['x-server']}`)).catch(e => logger.info(`error ${i}`))
   );
 })
 Promise.all(promises);
