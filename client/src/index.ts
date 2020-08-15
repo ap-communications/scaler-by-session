@@ -13,6 +13,8 @@ const parseMaxDownload = (n: number) => {
 }
 
 const range = (start: number, end: number) => Array.from({length: (end - start+ 1)}, (v, k) => k + start);
+const delay = (ms: number) => new Promise<void>(resolve => setTimeout(() => resolve(), ms));
+const random = (ms: number) => Math.floor(Math.random() * Math.floor(ms));
 
 argv.type('URL', v => new URL(v));
 const args = argv.option([
@@ -36,7 +38,7 @@ const numOfDownload: number = parseMaxDownload(args.options['num']);
 const promises: Promise<any>[] = [];
 range(1, numOfDownload).map(i => {
   promises.push(
-    download(url).then(res => logger.info(`completed ${i} ${res.headers['x-server']}`)).catch(e => logger.info(`error ${i}`))
+    delay(random(4567)).then(() => download(url).then(res => logger.info(`completed ${i} ${res.headers['x-server']}`)).catch(e => logger.info(`error ${i}`)))    
   );
 })
 Promise.all(promises);

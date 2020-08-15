@@ -33,7 +33,7 @@ spec:
         resources:
           requests:
             cpu: 100m       # 0.1 of a cpu
-            memory: 128Mi   # minimum size for running
+            memory: 1024Mi   # minimum size for running
         ports:
         - containerPort: 3000
         env:
@@ -42,3 +42,9 @@ spec:
             configMapKeyRef:
               name: scaler-sample-config
               key: NODE_ENV
+        readinessProbe:
+          httpGet:
+            port: 3000
+            path: /healthz/readiness
+          failureThreshold: 5
+          periodSeconds: 5
