@@ -9,6 +9,7 @@ import logger from './utils/logger';
 import environment from './config/environment';
 import healthz from './healthz/router';
 import apis from './apis/router';
+import { metrics } from './metrics/metrics';
 
 class ExpressServer {
   constructor(private app: Application) {}
@@ -21,7 +22,8 @@ class ExpressServer {
       .use(bodyParser.json())
       .use(morgan(environment.isProduction ? 'tiny': 'dev'))
       .use('/apis', apis)
-      .use('/healthz', healthz);
+      .use('/healthz', healthz)
+      .get('/metrics', metrics);
     return this;
   }
 
