@@ -7,8 +7,8 @@ const connectionGauge = new prom.Gauge({ name: 'sample_session_count', help: 'se
 
 export const metrics = (_: Request, res: Response) => {
   res
-    .set('Content-Type', 'text/plain')
-    .send(prom.register.metrics());
+    .set('Content-Type', prom.register.contentType)
+    .end(prom.register.metrics());
 }
 
 export const increaseConnection = () => connectionGauge.inc();

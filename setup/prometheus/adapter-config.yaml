@@ -6,11 +6,11 @@ rbac:
 rules:
   default: true
   custom:
-  - seriesQuery: 'sample_session_count'
+  - seriesQuery: '{__name__=~"^sample_session_count$"}'
     resources:
       template: <<.Resource>>
     name:
-      matches: "^(.*)"
+      matches: ""
       as: ""
     metricsQuery: sum(<<.Series>>{<<.LabelMatchers>>}) by (<<.GroupBy>>)
   resource:
