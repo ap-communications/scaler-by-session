@@ -6,18 +6,11 @@ rbac:
 rules:
   default: true
   custom:
-  - seriesQuery: 'sample_session_count{pod!=""}'
+  - seriesQuery: 'sample_session_count'
     resources:
       template: <<.Resource>>
     name:
-      matches: ""
-      as: ""
-    metricsQuery: sum(<<.Series>>{<<.LabelMatchers>>}) by (<<.GroupBy>>)
-  - seriesQuery: '{__name__=~"nodejs_.*",namespace!="",pod!=""}'
-    resources:
-      template: <<.Resource>>
-    name:
-      matches: ""
+      matches: "^(.*)"
       as: ""
     metricsQuery: sum(<<.Series>>{<<.LabelMatchers>>}) by (<<.GroupBy>>)
   resource:
