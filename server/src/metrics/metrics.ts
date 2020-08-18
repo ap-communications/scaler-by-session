@@ -3,7 +3,7 @@ import { Request, Response } from 'express';
 
 const collectDefaultMetrics = prom.collectDefaultMetrics;
 collectDefaultMetrics();  // 
-const connectionGauge = new prom.Gauge({ name: 'session_count', help: 'sessoin count for download ' })
+const connectionGauge = new prom.Gauge({ name: 'sample_session_count', help: 'sessoin count for download ' })
 
 export const metrics = (_: Request, res: Response) => {
   res

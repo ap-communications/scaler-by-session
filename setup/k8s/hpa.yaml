@@ -1,4 +1,4 @@
-apiVersion: autoscaling/v2beta1
+apiVersion: autoscaling/v2beta2
 kind: HorizontalPodAutoscaler
 metadata:
   name: scaler-sample
@@ -6,10 +6,13 @@ spec:
   minReplicas: 3
   maxReplicas: 10
   metrics:
-  - type: Resource
-    resource:
-      name: cpu
-      targetAverageUtilization: 50
+  - type: Pods
+    pods:
+      metric:
+        name: session_count
+      target:
+        type: AverageValue
+        averageValue: 3
   scaleTargetRef:
     apiVersion: apps/v1
     kind: Deployment
