@@ -9,7 +9,7 @@ spec:
   - type: Pods
     pods:
       metric:
-        name: session_count
+        name: sample_session_total
       target:
         type: AverageValue
         averageValue: 3
