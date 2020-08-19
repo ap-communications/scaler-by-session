@@ -6,13 +6,17 @@ rbac:
 rules:
   default: true
   custom:
-  - seriesQuery: '{__name__=~"^sample_session_count$"}'
+  - seriesQuery: 'sample_session_count{kubernetes_namespace!="",kubernetes_pod_name!=""}'
     resources:
-      template: <<.Resource>>
+      overrides:
+        kubernetes_namespace:
+          resource: namespace
+        kubernetes_pod_name:
+          resource: pod
     name:
-      matches: ""
+      matches: ^(.*)$
       as: ""
-    metricsQuery: sum(<<.Series>>{<<.LabelMatchers>>}) by (<<.GroupBy>>)
+    metricsQuery: sum(<<.Series>>{<<.LabelMatchers>>}) by (<<.GroupBy>>)    
   resource:
     cpu:
       containerQuery: sum(rate(container_cpu_usage_seconds_total{<<.LabelMatchers>>}[3m])) by (<<.GroupBy>>)
