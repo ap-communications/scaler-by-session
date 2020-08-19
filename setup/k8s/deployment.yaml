@@ -37,7 +37,7 @@ spec:
         resources:
           requests:
             cpu: 100m       # 0.1 of a cpu
-            memory: 1024Mi   # minimum size for running
+            memory: 1Gi     # minimum size for running
         ports:
         - containerPort: 3000
         env:
