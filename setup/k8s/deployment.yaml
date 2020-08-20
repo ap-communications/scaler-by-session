@@ -32,7 +32,7 @@ spec:
     spec:
       containers:
       - name: scaler-sample
-        image: 956859216284.dkr.ecr.ap-northeast-1.amazonaws.com/scaler-by-session:latest
+        image: <YOUR_CONTAINER_REGISTORY>/scaler-by-session:latest
         imagePullPolicy: Always
         resources:
           requests:

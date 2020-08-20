@@ -106,3 +106,6 @@ dist
 
 # for workspace
 *.code-workspace
+
+.DS_Store
+Thumbs.db
