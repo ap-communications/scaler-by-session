@@ -40,7 +40,3 @@
 [server/src/metrics/metrics.ts](server/src/metrics/metrics.ts) が収集用Endpointと集計データ(connectionGauge)のコード
 
 [server/src/apis/controllers/download.ts](server/src/apis/controllers/download.ts)のリクエスト受信直後にSession数カウントアップ（`increaseConnection`)、レスポンス完了時にSession数カウントダウン(`decreaseConnection`)を実行している
-
-```
-
-```
