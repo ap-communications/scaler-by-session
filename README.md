@@ -1,5 +1,9 @@
 # scaler-by-session
 
+## System Structure
+
+![How to collect session count](docs/images/how-to-collect-session-count.drawio.png)
+
 ## repository structure
 
 ```
